@@ -428,28 +428,57 @@ LOG_LEVEL="INFO"
 `;
 }
 
+export function generateRenderYaml(): string {
+  return `# Render Blueprint Configuration (render.yaml)
+# Deploy as a Background Worker or Web Service on Render.com
+
+services:
+  - type: worker
+    name: telegram-force-join-bot
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python bot.py"
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: LOG_LEVEL
+        value: INFO
+`;
+}
+
 export function generateDeploymentGuide(): string {
   return `### 🚀 Step-by-Step Deployment Guide
 
 1. **Create Bot on Telegram**:
    - Search for **@BotFather** on Telegram.
-   - Send \`/newbot\` and follow instructions to get your **HTTP API Token**.
+   - Send /newbot and follow instructions to get your **HTTP API Token**.
 
 2. **Add Bot to Target Channels & Groups**:
    - Add your bot as an **Administrator** in your **Target Channel(s)** (Must have *Invite Users* permission).
    - Add your bot as an **Administrator** in your **Telegram Group** (Must have *Delete Messages*, *Restrict Members*, *Pin Messages* permissions).
 
-3. **Deploy Options**:
-   - **Heroku / Render / Railway**:
+3. **Deploying on Render (Render.com)**:
+   - **Method A: Background Worker (Recommended for Long-Polling)**
+     1. Push your generated code (bot.py, requirements.txt, render.yaml) to a GitHub repository.
+     2. Log in to Render.com and click **New +** -> **Background Worker**.
+     3. Connect your GitHub repository.
+     4. Set **Environment**: Python 3.
+     5. Set **Build Command**: pip install -r requirements.txt
+     6. Set **Start Command**: python bot.py
+     7. Under **Environment Variables**, add:
+        - Key: BOT_TOKEN | Value: <Your Telegram Bot Token from @BotFather>
+     8. Click **Create Background Worker**!
+
+   - **Method B: Docker Container on Render**
+     1. In Render, select **New +** -> **Web Service** or **Background Worker**.
+     2. Choose **Docker** as the Runtime.
+     3. Add BOT_TOKEN environment variable.
+     4. Render will automatically build from your Dockerfile and start your bot!
+
+4. **Other Hosting Options**:
+   - **Heroku / Railway / VPS**:
      - Push code to GitHub repository.
-     - Set Environment Variable \`BOT_TOKEN\`.
-     - Deploy as a Worker / Background Process.
-   - **Docker / VPS (Ubuntu)**:
-     \`\`\`bash
-     git clone <your-repo>
-     cd <your-repo>
-     docker build -t force-join-bot .
-     docker run -d --name my-telegram-bot -e BOT_TOKEN="<your_token>" force-join-bot
-     \`\`\`
+     - Set Environment Variable BOT_TOKEN.
+     - Run using Docker or Python runtime.
 `;
 }

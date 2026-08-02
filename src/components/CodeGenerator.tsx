@@ -5,6 +5,7 @@ import {
   generateDockerfile,
   generateRequirementsTxt,
   generateEnvFile,
+  generateRenderYaml,
   generateDeploymentGuide,
 } from '../data/codeTemplates';
 import {
@@ -26,13 +27,14 @@ interface CodeGeneratorProps {
 
 export const CodeGenerator: React.FC<CodeGeneratorProps> = ({ config }) => {
   const [framework, setFramework] = useState<FrameworkTarget>('aiogram3');
-  const [activeFileTab, setActiveFileTab] = useState<'main' | 'requirements' | 'env' | 'docker' | 'guide'>('main');
+  const [activeFileTab, setActiveFileTab] = useState<'main' | 'requirements' | 'env' | 'docker' | 'render' | 'guide'>('main');
   const [copied, setCopied] = useState(false);
 
   const mainCode = generateBotCode(config, framework);
   const requirementsTxt = generateRequirementsTxt();
   const envFile = generateEnvFile(config.botToken);
   const dockerfile = generateDockerfile();
+  const renderYaml = generateRenderYaml();
   const deployGuide = generateDeploymentGuide();
 
   const getActiveCode = () => {
@@ -45,6 +47,8 @@ export const CodeGenerator: React.FC<CodeGeneratorProps> = ({ config }) => {
         return envFile;
       case 'docker':
         return dockerfile;
+      case 'render':
+        return renderYaml;
       case 'guide':
         return deployGuide;
       default:
@@ -64,6 +68,7 @@ export const CodeGenerator: React.FC<CodeGeneratorProps> = ({ config }) => {
       requirements: 'requirements.txt',
       env: '.env',
       docker: 'Dockerfile',
+      render: 'render.yaml',
       guide: 'DEPLOYMENT.md',
     };
 
@@ -192,6 +197,18 @@ export const CodeGenerator: React.FC<CodeGeneratorProps> = ({ config }) => {
           >
             <Box className="w-3.5 h-3.5" />
             <span>Dockerfile</span>
+          </button>
+
+          <button
+            onClick={() => setActiveFileTab('render')}
+            className={`px-3 py-1.5 rounded-lg font-mono flex items-center space-x-1.5 transition-all ${
+              activeFileTab === 'render'
+                ? 'bg-[#182533] text-[#64b5ef] border border-[#0088cc]/40 font-bold'
+                : 'text-[#7f91a4] hover:text-white'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+            <span>render.yaml</span>
           </button>
 
           <button
