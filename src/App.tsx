@@ -10,11 +10,11 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'simulator' | 'configurator' | 'live' | 'code'>('simulator');
 
   const [botConfig, setBotConfig] = useState<BotConfig>({
-    botToken: '',
-    botUsername: 'ForceJoinGuardBot',
-    botName: 'Force Join Protection Guard',
-    groupTitle: 'Crypto & Tech Global Chat',
-    groupUsername: '@crypto_tech_discussion',
+    botToken: '8911698277:AAF7Z-4An60c7B4UMRUocXo1IudRHfk7M50',
+    botUsername: '@WywalletBot',
+    botName: 'WYwallet',
+    groupTitle: 'WY wallet Support',
+    groupUsername: '@wywalletsupport',
     actionMode: 'delete_mute',
     autoDeleteTimerSec: 30,
     warningMessageText:
@@ -27,15 +27,12 @@ export default function App() {
     channels: [
       {
         id: 'ch1',
-        title: 'Crypto Signals & News',
-        username: '@crypto_signals_official',
-        inviteLink: 'https://t.me/crypto_signals_official',
+        title: 'Vip support',
+        username: 'https://t.me/+EQH_VKiHeBU2MjQ9',
+        inviteLink: 'https://t.me/+EQH_VKiHeBU2MjQ9',
       },
       {
-        id: 'ch2',
-        title: 'Tech Updates Daily',
-        username: '@tech_updates_daily',
-        inviteLink: 'https://t.me/tech_updates_daily',
+        
       },
     ],
     customButtons: [],
@@ -51,8 +48,8 @@ export default function App() {
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        botName={botConfig.botName}
-        botUsername={botConfig.botUsername}
+        botName={botConfig.WYwallet}
+        botUsername={botConfig.WywalletBot}
         isBotActive={true}
         channelCount={botConfig.channels.length}
       />
