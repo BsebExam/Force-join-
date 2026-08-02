@@ -1,0 +1,6 @@
+{
+  "name": "Telegram Force Join Bot Studio",
+  "description": "Configure, simulate, and deploy Telegram Force Channel Join Bots for groups with live webhook testing and full Python/Node.js bot generator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
